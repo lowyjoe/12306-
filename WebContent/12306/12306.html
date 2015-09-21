@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>12306车次晚点率</title>
+<script src="../plugins/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<div id="content">
+	 定时任务开始
+	</div>
+	
+</body>
+<script type="text/javascript">
+/* ajax轮训方法*/
+	function  ajaxRequest(){
+		$.ajax({
+			   //url: "https://kyfw.12306.cn/otn/leftTicket/query",
+			   url: "http://www.baidu.com/s",
+			   type: "GET",
+			   //dataType: 'jsonp',
+			   dataType: 'json',
+			   async: false,
+			  /*  jsonp:false,//不添加callback=aa
+			   cache:true,//不添加_=332232 使用缓存   */
+			  /*  jsonp: "Q",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+			   jsonpCallback:QP",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名 */
+			  /*  crossDomain : true, */
+			  data:"wd=aa&rsv_spt=1&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug2=0&inputT=590&rsv_sug4=1324",
+			     //data: "leftTicketDTO.train_date=2015-09-10&leftTicketDTO.from_station=SJP&leftTicketDTO.to_station=BJP&purpose_codes=ADULT",
+			    success: function(data){
+			     //$("#content").append(data.queryLeftNewDTO[0]);
+			     console.log(data);
+			     $("#content").append(data);
+			   }
+			});
+	  }
+	 $("#content").append('ddddd');
+	$.ajax({
+		url: "https://kyfw.12306.cn/otn/leftTicket/query",
+		// url: "station_name.js",
+		    type: "GET",
+		   //dataType: 'jsonp',
+		   jsonp:false,//不添加callback=aa
+		   cache:true,//不添加_=332232 使用缓存  
+		    data: "leftTicketDTO.train_date=2015-09-10&leftTicketDTO.from_station=SJP&leftTicketDTO.to_station=BJP&purpose_codes=ADULT",
+		    	success: function(msg){
+		    		alert('success');
+		    	     alert( "Data Saved: " + msg );
+		    	   },error:function(XMLResponse){
+		    		   alert('error');
+		    		   alert(XMLResponse.responseText);
+		    	   }
+
+		});
+  
+</script>
+<script type="text/javascript">
+/* 
+ ***************查询需要做的车***********
+ 石家庄-北京
+ https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2015-09-10&leftTicketDTO.from_station=SJP&leftTicketDTO.to_station=BJP&purpose_codes=ADULT
+ 实体: queryLeftNewDTO 
+ 车次：station_train_code
+ 始发车站： start_station_name  终点站：end_station_name
+ 从车站： from_station_name  到车站：to_station_name
+ 开车时间：start_time      到达时间：arrive_time    历时：lishi
+ 车号：train_no 实发车站：from_station_telecode  终点站：to_station_telecode 日期：depart_date
+ 
+ *****************查询车次详情**********
+ https://kyfw.12306.cn/otn/czxx/queryByTrainNo?train_no=410000K61006&from_station_telecode=VVP&to_station_telecode=BJP&depart_date=2015-09-09
+ 需要的参数：
+  车号：train_no 实发车站：from_station_telecode  终点站：to_station_telecode 日期：depart_date 
+  */
+</script>
+</html>
