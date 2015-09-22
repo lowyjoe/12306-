@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>图表插件测试</title>
-</head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap---echarts</title>
+    <!-- Bootstrap -->
+    <link href="../plugins/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="../plugins/html5shiv/html5shiv.min.js"></script>
+      <script src="../plugins/respond/respond.min.js"></script>
+    <![endif]-->
+  </head>
 <body>
  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="height:400px"></div>
+    <div id="main"  style="height:400px;"></div>
+    <!-- <div class="row">
+    	<div class="col-md-6" style="height:400px;" id="main"></div>
+    </div> -->
 </body>
+<!-- 这个ie8上不好用   http://jquery.com/download/  官网说明：jQuery 2.x has the same API as jQuery 1.x, but does not support Internet Explorer 6, 7, or 8. -->
+<!-- <script src="../plugins/jquery/2.0.0/jquery.min.js"></script> -->  
+ <!--  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>  --> 
+  <script src="../plugins/jquery/1.11.3/jquery-1.11.3.min.js"></script> 
+<script src="../plugins/bootstrap/3.0.3/js/bootstrap.min.js"></script>
  <!-- ECharts单文件引入 -->
-    <script src="../plugins/echarts2.2.7/echarts.js"></script>
-    <script src="options.js"></script>
+<script src="../plugins/echarts2.2.7/echarts.js"></script>
+<script src="test.js"></script>
+<script src="EchartsUtil.js"></script>
 <script type="text/javascript">
-// 路径配置
-require.config({ // 路径配置  其实就是把告诉esl.js相关的文件路径去哪里找
-            packages: [
-                {
-                    name: 'echarts',
-                    location: '../plugins/echarts2.2.7',//这里与目录有关，这个./src的意思就是到本文件的所在目录下的src目录下查找
-                    main: 'echarts'
-                },
-                {
-                    name: 'zrender',
-                    location: '../plugins/zrender',
-                    main: 'zrender'
-                }
-            ]
-        });
+var myChart0;
+requireConfig();//Echarts配置路径
 require(
         [
             'echarts',
@@ -34,11 +41,19 @@ require(
         ],
         function (ec) {
             // 基于准备好的dom，初始化echarts图表
-            var myChart = ec.init(document.getElementById('main')); 
-            
             // 为echarts对象加载数据 
-            myChart.setOption(option); 
+           myChart0 =ec.init(document.getElementById('main')).setOption(option0()); 
         }
     );
+//根据屏幕缩放自适应  缩放
+var resizeTicket;
+window.onload = function () {
+    window.onresize = function () {
+        clearTimeout(resizeTicket);
+        resizeTicket = setTimeout(function (){
+            myChart0.resize();
+        },200);
+    }
+}
 </script>
 </html>
