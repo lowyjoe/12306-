@@ -15,31 +15,46 @@
       <script src="../plugins/respond/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-    .footer img {
+/* 去掉tab-content tab-panel  下面的多余的宽度     */
+/* ****************************************************start******* */
+.tab-content > .tab-panel {
+    display: block;     /* undo display:none          */
+    height: 0;          /* height:0 is also invisible */ 
+    overflow-y: hidden; /* no-overflow                */
+}
+.tab-content > .active {
+    height: auto;       /* let the content decide it  */
+}
+/* *********************************************************end*****
+
+/*底部的图片内嵌式样式 */
+/* ****************************************************start******* */
+  .footer img {
 	max-height: 100px; 
 	float: left;
 	margin-top: 10px;
 	margin-right: 5px;
 }
+/* *********************************************************end*****/
     </style>
   </head>
 <body>
 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
-                      <a   href="#aqiTab" data-toggle="tab">AQI<br>（空气质量）</a></li>
-                    <li><a   href="#pm25Tab" data-toggle="tab">PM 2.5<br>（细颗粒物）</a></li>
-                    <li><a   href="#pm10Tab" data-toggle="tab">PM 10<br>（可吸入颗粒物）</a></li>
+                      <a   href="#aqiTab" data-toggle="tab">混合图<br>（柱状图-折线图）</a></li>
+                    <li><a   href="#pm25Tab" data-toggle="tab">柱状图<br>（彩虹）</a></li>
+                     <li><a   href="#pm10Tab" data-toggle="tab">地图<br>（带markLine地图）</a></li> 
                 </ul>
                 <div class="tab-content" >
-                        <div class="tab-panel active" id="aqiTab" >
-                        	<div  id="aqi" style="height:430px"></div>
+                        <div class="tab-panel fade in active" id="aqiTab" >
+                        	<div  id="barLineChart" style="height:430px"></div>
                         </div>
-                        <!-- <div class="tab-panel" id="pm25Tab">
-                        	<div id="pm25" style="height:430px"></div>
+                        <div class="tab-panel fade" id="pm25Tab">
+                        	<div id="barChart" style="height:430px;"></div>
                         </div>
-                        <div class="tab-panel" id="pm10Tab">
-                          <div id="pm10" style="height:430px"></div>
-                        </div> -->
+                         <div class="tab-panel" id="pm10Tab">
+                          <div id="mapChart" style="height:430px"></div>
+                        </div>
                 </div>
  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
    <!--  <div id="main"  style="height:400px;"></div> -->
@@ -73,21 +88,27 @@
 <script src="../plugins/echarts2.2.7/echarts.js"></script>
 <script src="option0.js"></script>
 <script src="option1.js"></script>
+<script src="optionChartBar.js"></script>
+<script src="optionMap.js"></script>
 <script src="EchartsUtil.js"></script>
 <script type="text/javascript">
-var myChart0,myChart1;
+var myChart0,myChart1,myChart2;
 requireConfig();//Echarts配置路径
 require(
         [
             'echarts',
-            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+            'echarts/chart/line', 
+            'echarts/chart/map' 
         ],
         function (ec) {
             // 基于准备好的dom，初始化echarts图表
             // 为echarts对象加载数据 
             EC_READY=true;
-           myChart0 =ec.init(document.getElementById('aqi')).setOption(option0()); 
-           myChart1 =ec.init(document.getElementById('pm25')).setOption(option1()); 
+          /*  myChart0 =ec.init(document.getElementById('aqi')).setOption(option0()); */
+           myChart0 =ec.init(document.getElementById('barLineChart')).setOption(optionChartBar());
+           myChart1 =ec.init(document.getElementById('barChart')).setOption(option1());  
+           myChart2 =ec.init(document.getElementById('mapChart')).setOption(optionMap());  
         }
     );
 
@@ -99,6 +120,7 @@ window.onload = function () {
         resizeTicket = setTimeout(function (){
             myChart0.resize();
             myChart1.resize();
+            myChart2.resize();
         },200);
     }
 }
