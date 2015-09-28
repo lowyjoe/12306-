@@ -14,13 +14,55 @@
       <script src="../plugins/html5shiv/html5shiv.min.js"></script>
       <script src="../plugins/respond/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+    .footer img {
+	max-height: 100px; 
+	float: left;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+    </style>
   </head>
 <body>
+<ul class="nav nav-tabs nav-justified">
+                    <li class="active">
+                      <a   href="#aqiTab" data-toggle="tab">AQI<br>（空气质量）</a></li>
+                    <li><a   href="#pm25Tab" data-toggle="tab">PM 2.5<br>（细颗粒物）</a></li>
+                    <li><a   href="#pm10Tab" data-toggle="tab">PM 10<br>（可吸入颗粒物）</a></li>
+                </ul>
+                <div class="tab-content" >
+                        <div class="tab-panel active" id="aqiTab" >
+                        	<div  id="aqi" style="height:430px"></div>
+                        </div>
+                        <!-- <div class="tab-panel" id="pm25Tab">
+                        	<div id="pm25" style="height:430px"></div>
+                        </div>
+                        <div class="tab-panel" id="pm10Tab">
+                          <div id="pm10" style="height:430px"></div>
+                        </div> -->
+                </div>
  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main"  style="height:400px;"></div>
+   <!--  <div id="main"  style="height:400px;"></div> -->
     <!-- <div class="row">
     	<div class="col-md-6" style="height:400px;" id="main"></div>
     </div> -->
+    <div class="footer">
+      <div class="container">
+          <div class="row">
+              <img src="../img/henry.png">
+              <img src="../img/holly.png">
+              <img src="../img/daniel.png">
+              <img src="../img/ben.png">
+              <img src="../img/jenn.png">
+              <img src="../img/max.png">
+              <img src="../img/amy.png">
+              <img src="../img/lauren.png">
+              <img src="../img/jon.png">
+              <img src="../img/scott.png">
+              <img src="../img/claire.png">
+          </div>
+      </div>
+    </div>
 </body>
 <!-- 这个ie8上不好用   http://jquery.com/download/  官网说明：jQuery 2.x has the same API as jQuery 1.x, but does not support Internet Explorer 6, 7, or 8. -->
 <!-- <script src="../plugins/jquery/2.0.0/jquery.min.js"></script> -->  
@@ -29,10 +71,11 @@
 <script src="../plugins/bootstrap/3.0.3/js/bootstrap.min.js"></script>
  <!-- ECharts单文件引入 -->
 <script src="../plugins/echarts2.2.7/echarts.js"></script>
-<script src="test.js"></script>
+<script src="option0.js"></script>
+<script src="option1.js"></script>
 <script src="EchartsUtil.js"></script>
 <script type="text/javascript">
-var myChart0;
+var myChart0,myChart1;
 requireConfig();//Echarts配置路径
 require(
         [
@@ -42,9 +85,12 @@ require(
         function (ec) {
             // 基于准备好的dom，初始化echarts图表
             // 为echarts对象加载数据 
-           myChart0 =ec.init(document.getElementById('main')).setOption(option0()); 
+            EC_READY=true;
+           myChart0 =ec.init(document.getElementById('aqi')).setOption(option0()); 
+           myChart1 =ec.init(document.getElementById('pm25')).setOption(option1()); 
         }
     );
+
 //根据屏幕缩放自适应  缩放
 var resizeTicket;
 window.onload = function () {
@@ -52,6 +98,7 @@ window.onload = function () {
         clearTimeout(resizeTicket);
         resizeTicket = setTimeout(function (){
             myChart0.resize();
+            myChart1.resize();
         },200);
     }
 }
