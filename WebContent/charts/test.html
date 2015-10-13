@@ -34,31 +34,30 @@
 	float: left;
 	margin-top: 10px;
 	margin-right: 5px;
-}
+} 
 /* *********************************************************end*****/
     </style>
   </head>
 <body>
 <div class="page-header">
-  <h1>这是个Echarts和Bootstrap浏览器自适应兼容 <small>Enjoy IT</small></h1>
+  <h1>Echarts和Bootstrap浏览器自适应(兼容IE8+) <small>Enjoy IT</small></h1>
 </div>
 <ul class="nav nav-tabs nav-justified">
-                    <li class="active">
-                      <a   href="#aqiTab" data-toggle="tab">混合图<br>（柱状图-折线图）</a></li>
-                    <li><a   href="#pm25Tab" data-toggle="tab">柱状图<br>（彩虹）</a></li>
-                     <li><a   href="#pm10Tab" data-toggle="tab">地图<br>（带markLine地图）</a></li> 
-                </ul>
-                <div class="tab-content" >
-                        <div class="tab-panel fade in active" id="aqiTab" >
-                        	<div  id="barLineChart" style="height:430px"></div>
-                        </div>
-                        <div class="tab-panel fade" id="pm25Tab">
-                        	<div id="barChart" style="height:430px;"></div>
-                        </div>
-                         <div class="tab-panel" id="pm10Tab">
-                          <div id="mapChart" style="height:430px"></div>
-                        </div>
-                </div>
+                <li class="active "><a   href="#aqiTab" data-toggle="tab">混合图<br>（柱状图-折线图）</a></li>
+                <li ><a   href="#pm25Tab" data-toggle="tab">柱状图<br>（彩虹）</a></li>
+                <li ><a   href="#pm10Tab" data-toggle="tab">地图<br>（带markLine地图）</a></li> 
+</ul>
+<div class="tab-content" >
+                 <div class="tab-panel fade in active" id="aqiTab" >
+                 	<div  id="barLineChart" style="height:430px"></div>
+           </div>
+           <div class="tab-panel fade" id="pm25Tab">
+           	<div id="barChart" style="height:430px;"></div>
+           </div>
+            <div class="tab-panel" id="pm10Tab">
+             <div id="mapChart" style="height:430px"></div>
+           </div>
+ </div>
  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
    <!--  <div id="main"  style="height:400px;"></div> -->
     <!-- <div class="row">
