@@ -33,7 +33,7 @@
       		<div class="row">
       			<div class="col-md-12 text-center">
       			<div class="btn btn-success" onclick="refreshSelf(this);">自动刷新</div>
-      			   Beta 0.0.1<div class="btn btn-success" onclick="refresh();">下一页</div>
+      			   Beta 0.0.1<div class="btn btn-success " onclick="refreshNext(this);">下一页</div>
       			</div>
       		</div>
       	</div>
@@ -71,7 +71,7 @@
       	<div class="col-md-3">
       	<div class="row">
       		<div class="col-md-12 text-center"  >
-      			  正在加紧开发。。。。
+      			  正在加紧开发。。。。<div class="btn btn-success" onclick="refreshPre(this);">上一页</div>
       			</div>
       		</div>
       	</div>
@@ -87,19 +87,35 @@
 	var times=0;
 	var refreshOn=false;//刷新停止
 	var refreshInter;//自动刷新
-	function  refresh(){
-		times++;
-		testAppend(6);
+	//下一页
+	function  refreshNext(self){
+		if(times>3){
+			alert('已经是最后一页');
+			clearInterval(refreshInter);
+		}else{
+			times++;
+			testAppend(6);
+		}
 	}
-	function  refreshSelf(a){
+	//上一页
+	function  refreshPre(self){
+		if(times<1){
+			alert('没有了');
+			clearInterval(refreshInter);
+		}else{
+			times--;
+			testAppend(6);
+		}
+	}
+	function  refreshSelf(self){
 		if(refreshOn){
-			 $(a).html("自动刷新");
+			 $(self).html("自动刷新");
 			 refreshOn=false;
 			  clearInterval(refreshInter);
 		}else{
-			 $(a).html("停止刷新");
+			 $(self).html("停止刷新");
 			 refreshOn=true;
-			 refreshInter=setInterval('refresh()', 1000);
+			 refreshInter=setInterval('refreshNext()', 1000);
 		}   
 	}
 	function  getRandom(){
