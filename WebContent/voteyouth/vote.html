@@ -21,6 +21,9 @@
 			/* margin-left: 29%;
 	 		margin-right: 50px; */
 		}  
+		.wrapDiv{
+			padding-top: 20px;
+		}
     </style>
   </head>
 <body>
@@ -29,101 +32,45 @@
       	<div class="col-md-3">
       		<div class="row">
       			<div class="col-md-12 text-center">
-      			   Beta 0.0.1
+      			<div class="btn btn-success" onclick="refreshSelf(this);">自动刷新</div>
+      			   Beta 0.0.1<div class="btn btn-success" onclick="refresh();">下一页</div>
       			</div>
       		</div>
       	</div>
-      	<div class="col-md-2">
-      		<div class="row">
+      	<div id="wrapContent" class="col-md-6">
+      		<div class="wrapDiv col-md-4">
 	      		<div class="row">
-	      			<div class="col-md-12">
-	      				 <img alt="" src="img/1.jpg">
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      			<div class="col-md-4 text-center">
-	      				<div style="font-size: xx-large;background: orange;">1</div>
-	      			</div>
-	      			<div class="col-md-8">
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>1号 陈诚 </div>
-	      					</div>
-	      				</div>
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>31133票 </div>
-	      					</div>
-	      				</div>
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      				<div class="col-md-offset-1 col-md-8  btn btn-success disabled">投票结束</div>
-	      		</div>
+		      		<div class="row">
+		      			<div class="col-md-12">
+		      				 <img alt="" src="img/1.jpg">
+		      			</div>
+		      		</div>
+		      		<div class="row">
+		      			<div class="col-md-4 text-center">
+		      				<div style="font-size: xx-large;background: orange;">1</div>
+		      			</div>
+		      			<div class="col-md-8">
+		      				<div class="row">
+		      					<div class="col-md-12">
+		      						<div>1号 陈诚 </div>
+		      					</div>
+		      				</div>
+		      				<div class="row">
+		      					<div class="col-md-12">
+		      						<div>31133票 </div>
+		      					</div>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		<div class="row">
+		      				<div class="col-md-offset-1 col-md-8  btn btn-success disabled">投票结束</div>
+		      		</div>
+		      	</div>
 	      	</div>
       	</div>
-      <div class="col-md-2">
-      		<div class="row">
-	      		<div class="row">
-	      			<div class="col-md-12">
-	      				 <img alt="" src="img/2.jpg">
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      			<div class="col-md-4 text-center">
-	      				<div style="font-size: xx-large;background: orange;">1</div>
-	      			</div>
-	      			<div class="col-md-8">
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>1号 陈诚 </div>
-	      					</div>
-	      				</div>
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>31133票 </div>
-	      					</div>
-	      				</div>
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      				<div class="col-md-offset-1 col-md-8  btn btn-success disabled">投票结束</div>
-	      		</div>
-	      	</div>
-      	</div>
-      	<div class="col-md-2">
-      		<div class="row">
-	      		<div class="row">
-	      			<div class="col-md-12">
-	      				 <img alt="" src="img/3.jpg">
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      			<div class="col-md-4 text-center">
-	      				<div style="font-size: xx-large;background: orange;">1</div>
-	      			</div>
-	      			<div class="col-md-8">
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>1号 陈诚 </div>
-	      					</div>
-	      				</div>
-	      				<div class="row">
-	      					<div class="col-md-12">
-	      						<div>31133票 </div>
-	      					</div>
-	      				</div>
-	      			</div>
-	      		</div>
-	      		<div class="row">
-	      				<div class="col-md-offset-1 col-md-8  btn btn-success disabled">投票结束</div>
-	      		</div>
-	      	</div>
-      	</div>
-      	 
       	<div class="col-md-3">
       	<div class="row">
-      		<div class="col-md-12 text-center" style="min-height: 2000px;">
+      		<div class="col-md-12 text-center"  >
       			  正在加紧开发。。。。
       			</div>
       		</div>
@@ -137,8 +84,36 @@
 <script src="../plugins/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="../plugins/jqueryCookie/jquery.cookie.js"></script>
 <script type="text/javascript">
-	function  getRandom(){
-		return parseInt(Math.random()*10);
+	var times=0;
+	var refreshOn=false;//刷新停止
+	var refreshInter;//自动刷新
+	function  refresh(){
+		times++;
+		testAppend(6);
 	}
+	function  refreshSelf(a){
+		if(refreshOn){
+			 $(a).html("自动刷新");
+			 refreshOn=false;
+			  clearInterval(refreshInter);
+		}else{
+			 $(a).html("停止刷新");
+			 refreshOn=true;
+			 refreshInter=setInterval('refresh()', 1000);
+		}   
+	}
+	function  getRandom(){
+		var res=parseInt(Math.random()*10)+1;//1-10
+		return res;
+	}
+	function testAppend(n){
+		var num;
+		$("#wrapContent").empty();
+		for(var i=1;i<=n;i++){
+			num=getRandom();
+			$("#wrapContent").append('<div class="wrapDiv col-md-4"><div class="row"><div class="row"><div class="col-md-12"><img alt="" src="img/'+(num>9?9:num)+'.jpg"></div></div><div class="row"><div class="col-md-4 text-center"><div style="font-size: xx-large;background: orange;">'+(i+times*6)+'</div></div><div class="col-md-8"><div class="row"><div class="col-md-12"><div>'+(i+times*6)+'号 诚真 </div></div></div><div class="row">	<div class="col-md-12"><div>'+num+'票 </div></div></div></div>	</div><div class="row">	<div class="col-md-offset-1 col-md-8  btn btn-success disabled">投票结束</div></div>	</div>	</div>');
+		}
+	}
+	 testAppend(6);
 </script>
 </html>
