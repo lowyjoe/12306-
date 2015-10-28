@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<!-- textarea 标签加载后自定义高度和宽度 -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>青春投票</title>
+    <!-- Bootstrap -->
+    <link href="../plugins/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="../plugins/html5shiv/html5shiv.min.js"></script>
+      <script src="../plugins/respond/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+	 <h1 class="text-center">谁的青春不迷茫</h1>
+	   <textarea class="autoHeight" rows="2" style="cursor:auto;width: 100%; " readonly="readonly"> 192.168.200.181.52197-058.244.173.134.00080: GET /DOCS///../....//....//WEB-INF/WEB.XML%20/INDEX.HTML HTTP/1.1
+REFERER: HTTP://WWW.ZGCJRSYW.COM
+COOKIE: HTVXRAHW=1
+HOST: WWW.ZGCJRSYW.COM
+CONNECTION: KEEP-ALIVE
+ACCEPT-ENCODING: GZIP,DEFLATE
+USER-AGENT: MOZILLA/5.0 (WINDOWS NT 6.1; WOW64) APPLEWEBKIT/537.36 (KHTML, LIKE GECKO) CHROME/28.0.1500.63 SAFARI/537.36
+ACCEPT: */*
+	   </textarea>
+</body>			 
+<!-- 这个ie8上不好用   http://jquery.com/download/  官网说明：jQuery 2.x has the same API as jQuery 1.x, but does not support Internet Explorer 6, 7, or 8. -->
+<!-- <script src="../plugins/jquery/2.0.0/jquery.min.js"></script> -->  
+ <!--  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>  --> 
+  <script src="../plugins/jquery/1.11.3/jquery-1.11.3.min.js"></script> 
+<script src="../plugins/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="../plugins/jqueryCookie/jquery.cookie.js"></script>
+<script type="text/javascript">
+
+$(".autoHeight").each(function (){
+	 //$(this).height($(this).prop("scrollHeight"));
+	 alert($(this).height());
+	 alert($(this).prop("scrollHeight"));
+	  $(this).height($(this).prop("scrollHeight"));  
+});
+</script>
+</html>
