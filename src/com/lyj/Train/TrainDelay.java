@@ -38,10 +38,15 @@ public class TrainDelay {
 	 * @throws
 	 */
 	public static void main(String[] args) throws Exception {
-		 testQuery();//测试  火车票信息
+		/*trustEveryone();
+		Response res  = Jsoup.connect("https://192.168.200.114:8443/EverLog").ignoreContentType(true).timeout(10000).method(Method.POST).execute();
+		System.out.println(res.body());
+		*/  //testQuery();//测试  火车票信息
 		  //System.out.println(trainDelayQuery("hhdd").body());
-		/*  Response res= trainDelayQuery("石家庄", "D2002");
-		 System.out.println(res.body());*/
+		   Response res= trainDelayQuery("石家庄", "K279");
+		   String result=res.body().toString().trim();
+		   System.out.println(result);
+		 System.out.println(result.substring(result.indexOf("时间为")+3, result.length())); 
 		/*FileUtil.saveFile(new File("C:\\Users\\liuyijiao\\Desktop\\testaa.txt"), "这是测试1",true);
 		FileUtil.saveFile(new File("C:\\Users\\liuyijiao\\Desktop\\testaa.txt"), "\n这是测试2\nddd",false);*/
 	}
@@ -120,7 +125,7 @@ public class TrainDelay {
     	 String czEn=URLEncoder.encode(cz,"utf-8");
     	 czEn=czEn.replaceAll("%", "-");
     	 cz=URLEncoder.encode(cz, "gbk");
-    	 String cxlx="0";
+    	 String cxlx="0";//0:到站 1：出发
     	 String rq=TimeUtil.getFormatedDate("yyyy-MM-dd");
     	 String tp = new Date().getTime()+"";
 		 if (org.jsoup.helper.StringUtil.isBlank(url)) {
@@ -138,6 +143,7 @@ public class TrainDelay {
 		var tp = new Date().getTime();
 		*/
 		//http://dynamic.12306.cn/map_zwdcx/cx.jsp?cz=%CA%AF%BC%D2%D7%AF&cc=G574&cxlx=0&rq=2015-10-19&czEn=-E7-9F-B3-E5-AE-B6-E5-BA-84&tp=1445248090669
+		System.out.println(url+"?cz="+cz+"&cc="+cc+"&cxlx="+cxlx+"&rq="+rq+"&czEn="+czEn+"&tp="+tp);
 		Response response = Jsoup.connect(url).data("cz",cz,"cc",cc,"cxlx",cxlx,"rq",rq,"czEn",czEn,"tp",tp).ignoreContentType(true).timeout(10000).method(Method.GET).execute();  
 		return  response;
     }
@@ -164,7 +170,7 @@ public class TrainDelay {
 			trustEveryone();
 		}
 		//get  方法
-		Response response = Jsoup.connect(url+"?leftTicketDTO.train_date=2015-10-20&leftTicketDTO.from_station=SJP&leftTicketDTO.to_station=BJP&purpose_codes=ADULT").ignoreContentType(true).timeout(10000).method(Method.GET).execute();  
+		Response response = Jsoup.connect(url+"?leftTicketDTO.train_date=2015-10-23&leftTicketDTO.from_station=SJP&leftTicketDTO.to_station=BJP&purpose_codes=ADULT").userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0").ignoreContentType(true).timeout(10000).method(Method.GET).execute();  
 		/*Map<String,String> cookieMap=new HashMap<String,String>();
 		cookieMap.put("BIGipServerotn", "1943601418.24610.0000");  
 		cookieMap.put("JSESSIONID", "0A01D973607BAF2255B7E0DBC04749C026D5B4C358");
