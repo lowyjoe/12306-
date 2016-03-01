@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Connection.Response;
 
 /**
  * 文件操作工具类
@@ -160,6 +161,23 @@ public class FileUtil {
 		return  xmlContent;
 	
     }
+    //保存图片  12306验证图片使用
+    public static void saveImg(String picDir,String fileName,Response response) throws Exception {  
+        String filePath = picDir+"\\"+fileName ;  
+        BufferedOutputStream out = null;  
+        byte[] bit = response.bodyAsBytes();  
+        if (bit.length > 0) {  
+            try {  
+                out = new BufferedOutputStream(new FileOutputStream(filePath));  
+                out.write(bit);  
+                out.flush();  
+                System.out.println("Create File success! [" + filePath + "]");  
+            } finally {  
+                if (out != null)  
+                    out.close();  
+            }  
+        }  
+    }  
     public static void close(InputStream in, OutputStream out) {
 
         try {
