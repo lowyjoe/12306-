@@ -28,7 +28,7 @@ public class Xiyouji {
 			System.out.print("按enter开始。。。。。");
 			System.out.print("q保存退出。。。。。");
 			System.out.print("n下一页。。。。。");
-			System.out.print("p上一页。。。。。");
+			System.out.println("p上一页。。。。。");
 				 for (int i = saveI; i <=charLength; i++) {
 					if ((i!=saveI)&&(i%50 == 0)&&(i!=charLength)) {
 						String nextStr=sc.nextLine();
